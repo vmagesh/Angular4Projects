@@ -1,0 +1,31 @@
+<nav
+	class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top opaque-navbar">
+	<button class="navbar-toggler navbar-toggler-right" type="button"
+		data-toggle="collapse" data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<a class="navbar-brand" href="#"> <img src="./assets/icon2.png"
+		width="60" height="60" alt=""> <span class="text-white">JSS</span>
+	</a>
+
+	<div *ngIf="val=='home'" class="collapse navbar-collapse"
+		id="navbarSupportedContent">
+		<ul class="nav navbar-nav ml-auto">
+			<li class="nav-item active"><a class="nav-link text-white"
+				pageScroll href="#home-section">HOME</a></li>
+			<li class="nav-item"><a class="nav-link text-white" pageScroll
+				href="#about-section">ABOUT</a></li>
+			<li class="nav-item"><a class="nav-link text-white" pageScroll
+				href="#services-section">SERVICES</a></li>
+			<li class="nav-item"><a class="nav-link text-white" pageScroll
+				href="#contact-section">CONTACT</a></li>
+		</ul>
+	</div>
+
+	<div *ngIf="val=='servicedetail'" class="nav-link text-white"
+		style="width: 100%;">
+		<span class="right">SERVICES</span>
+	</div>
+</nav>
