@@ -1,0 +1,120 @@
+{
+  "configVersion": 1,
+  "timestamp": 1589119715750,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/5-es2015.d52b3f371af4837d49f0.js",
+        "/5-es5.d52b3f371af4837d49f0.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-es2015.53e9018d511c84501d86.js",
+        "/main-es5.53e9018d511c84501d86.js",
+        "/manifest.json",
+        "/polyfills-es2015.b4dc0f904711ad82dd24.js",
+        "/polyfills-es5.1889d5667c0a65b91c43.js",
+        "/runtime-es2015.d89a17ac77d7336f6252.js",
+        "/runtime-es5.d89a17ac77d7336f6252.js",
+        "/scripts.23aa742c21d8986e2732.js",
+        "/styles.114cf9cf2be9e649caca.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/Contries.json",
+        "/assets/css/catchup-theme.css",
+        "/assets/img/Catchuplogo.svg",
+        "/assets/img/Plan.png",
+        "/assets/img/back.svg",
+        "/assets/img/buildings.png",
+        "/assets/img/catchup.png",
+        "/assets/img/catchup.svg",
+        "/assets/img/id.png",
+        "/assets/img/login-banner.jpg",
+        "/assets/img/partyplanner.png",
+        "/assets/ngx-rocket-logo.png",
+        "/assets/ngx-rocket-logo@192.png",
+        "/fa-brands-400.067595ad77ecc0db9c81.woff2",
+        "/fa-brands-400.57dcda6f368ea90179f7.eot",
+        "/fa-brands-400.9ec698d1a597bff5df33.ttf",
+        "/fa-brands-400.b564da88bbf0c4aa446f.woff",
+        "/fa-regular-400.3351f435b3c9037fd88a.eot",
+        "/fa-regular-400.4165c2688309cbfb1b87.woff2",
+        "/fa-regular-400.73cf49a2232c06c920b7.woff",
+        "/fa-regular-400.a0e3ac82940c1998c597.ttf",
+        "/fa-solid-900.55eb2a60e8181f0e68b5.woff2",
+        "/fa-solid-900.75f38a159982b6bd1704.ttf",
+        "/fa-solid-900.89e02bae13c9131c7468.eot",
+        "/fa-solid-900.cdfec5cf5e9840889790.woff"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/5-es2015.d52b3f371af4837d49f0.js": "d87e8c02682b4d8032d0c9fc9836bbbe03344eda",
+    "/5-es5.d52b3f371af4837d49f0.js": "952286f1669af5e98fababebb4990f5d8297b5b5",
+    "/assets/Contries.json": "d62190deddaaf8ef1749978df6982a3d3c4075f5",
+    "/assets/css/catchup-theme.css": "cdf35c885a40335d56e2aa56aea999ac33b4f497",
+    "/assets/img/Catchuplogo.svg": "52356271b34513a3a69a6a38666f1c5ed377d118",
+    "/assets/img/Plan.png": "36c34948945876702d795e9ab637e16bcafa7c79",
+    "/assets/img/back.svg": "5e1471ba816c199b0c09c2bffc86126d46afd9c0",
+    "/assets/img/buildings.png": "99c4333b5deb893761ad84a1a5d7c2c3401dee13",
+    "/assets/img/catchup.png": "b51f2bf6e7159c42d0872d151e7cd55699362f58",
+    "/assets/img/catchup.svg": "7b75a244b3e59f109bd1c8173ea01f4c05f6801e",
+    "/assets/img/id.png": "d5beff398d17ba7ff5f0b9c060bd16ca68e894a2",
+    "/assets/img/login-banner.jpg": "7d2cc5fb1abfefa32ff00add496f3add98434230",
+    "/assets/img/partyplanner.png": "f13259503ab1edd7728ee450e191c7c8b34285de",
+    "/assets/ngx-rocket-logo.png": "0ac53fd27406fe5a36e68285315fb0012e54058e",
+    "/assets/ngx-rocket-logo@192.png": "461b730f9c6dc818f8af9acbe62dfde24dc02d7a",
+    "/fa-brands-400.067595ad77ecc0db9c81.woff2": "3a175545f961094f3614f208f2166187b642355f",
+    "/fa-brands-400.57dcda6f368ea90179f7.eot": "e6feaa7a93ad42acb348529c9a684a0cf5cbf2ee",
+    "/fa-brands-400.9ec698d1a597bff5df33.ttf": "d9b2f287f46c950737c434e4153777968a73cecc",
+    "/fa-brands-400.b564da88bbf0c4aa446f.woff": "3023db69a482111f7a17f29cee621a933cc5f4b9",
+    "/fa-regular-400.3351f435b3c9037fd88a.eot": "af1d634a307219795957412a586abaf626f4829b",
+    "/fa-regular-400.4165c2688309cbfb1b87.woff2": "37b761c26708037d19664cebea70416852487087",
+    "/fa-regular-400.73cf49a2232c06c920b7.woff": "dc2741902e041fc638697d76733b6252c68f1f99",
+    "/fa-regular-400.a0e3ac82940c1998c597.ttf": "bb89a35e00d0ba8a5382cc66809abe3d5cd3e932",
+    "/fa-solid-900.55eb2a60e8181f0e68b5.woff2": "af776f52d579da211590e0691d554b88a69dfe61",
+    "/fa-solid-900.75f38a159982b6bd1704.ttf": "481530e4da272092a90415b3403b4e533416e295",
+    "/fa-solid-900.89e02bae13c9131c7468.eot": "e13aaeda706af85d9382d7c39f5a3f79d612cd31",
+    "/fa-solid-900.cdfec5cf5e9840889790.woff": "120dab7a8a93da819ab3025da6a9f3d3ccd65cce",
+    "/favicon.ico": "79aa19e0fe4c4a05692b3456bfa8baad390d4b47",
+    "/index.html": "1e1ac4bdb565c95f3a2b827c0091767f1de4bb6f",
+    "/main-es2015.53e9018d511c84501d86.js": "c13a0a34aed92fe558bdf3d68d8d451639e7e121",
+    "/main-es5.53e9018d511c84501d86.js": "27551c25a6383f72552dc541a97c4201962ba1b4",
+    "/manifest.json": "0ae7d5c5fa9a8fcbf442530a4760f4354c71eae1",
+    "/polyfills-es2015.b4dc0f904711ad82dd24.js": "76fc86259c8dd3277e0217399e7037960a6670cc",
+    "/polyfills-es5.1889d5667c0a65b91c43.js": "93df9b7fb6c90656d96c7a048491075e2c335e6a",
+    "/runtime-es2015.d89a17ac77d7336f6252.js": "226e7db4d8c24383b1079560a06ba9864ca47cd9",
+    "/runtime-es5.d89a17ac77d7336f6252.js": "e3a56ce07deccfaeb2b761ed62b3cd4418480ff8",
+    "/scripts.23aa742c21d8986e2732.js": "dbffcf3ebeeefd598beec71c5a383b67f074c186",
+    "/styles.114cf9cf2be9e649caca.css": "a2ede496f61690ffd1aecce6342a31e2e215ddeb"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
