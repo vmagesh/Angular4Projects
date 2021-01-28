@@ -1,0 +1,302 @@
+<div class="modal-content">
+  <div class="modal-header modal-header-info">
+    <h4 *ngIf="meeting_id == 0" class="modal-title" id="modal-basic-title">Create Appointment</h4>
+    <h4 *ngIf="appointment && appointment.meeting_id > 0" class="modal-title" id="modal-basic-title">
+      Edit Appointment
+    </h4>
+    <div class="pl-sm-5">
+      <select
+        data-width="75%"
+        class="selectpicker form-control"
+        [disabled]="appointment.is_cancelled || !canEdit"
+        (change)="onChange($event)"
+        [formControl]="UserStatus"
+        style="max-width: 200px;"
+        *ngIf="appointment && appointment.meeting_id > 0"
+        [ngClass]="{
+          accepted: UserStatus.value == 3 || UserStatus.value == 1,
+          tentitive: UserStatus.value == 5,
+          rejected: UserStatus.value == 4
+        }"
+      >
+        <option *ngFor="let status of statuses" [value]="status.id"> {{ status.name }}</option>
+      </select>
+    </div>
+    <!-- <div>
+    <select [disabled]= "appointment.is_cancelled || !canEdit" (selectionChange) ="onChange(status.name)" 
+                [formControl]="UserStatus" style="max-width: 200px;" *ngIf="appointment && appointment.meeting_id > 0"
+                [ngClass]="{'accepted':UserStatus.value == 3 || UserStatus.value == 1
+                ,'tentitive':UserStatus.value == 5
+                , 'rejected':UserStatus.value == 4}">
+              <option (click)="onChange(status.name)" *ngFor="let status of statuses" [value]="status.id">
+                  {{status.name}}</option>
+              </select> 
+              <select [disabled]= "appointment.is_cancelled || !canEdit"
+                    (change)="onChange($event.target.value)"
+                    [formControl]="UserStatus"
+                    style="max-width: 200px;"
+                    *ngIf="appointment && appointment.meeting_id > 0"
+                    [ngClass]="{
+                      accepted: UserStatus.value == 3 || UserStatus.value == 1,
+                      tentitive: UserStatus.value == 5,
+                      rejected: UserStatus.value == 4
+                    }">
+              <option *ngFor="let status of statuses" [value]="status.id"> {{ status.name }}</option>
+              </select>
+              <select [disabled]= "appointment.is_cancelled || !canEdit" (selectionChange) ="onChange($event)" 
+                      [formControl]="UserStatus" style="max-width: 200px;" *ngIf="appointment && appointment.meeting_id > 0"
+                      [ngClass]="{'accepted':UserStatus.value == 3 || UserStatus.value == 1
+                      ,'tentitive':UserStatus.value == 5
+                      , 'rejected':UserStatus.value == 4}">
+      <option *ngFor="let status of statuses" [value]="status.id">
+          {{status.name}}</option>
+    </select>
+    </div> -->
+
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="appointmentForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="Title">Title</label>
+            <div class="input-group">
+              <input
+                formControlName="subject"
+                class="form-control"
+                placeholder="Add a title..."
+                type="text"
+                maxlength="50"
+              />
+            </div>
+            <div
+              *ngIf="
+                formControls.subject.invalid &&
+                (formControls.subject.touched || formControls.subject.dirty || submitted)
+              "
+            >
+              <span class="text-danger" *ngIf="formControls.subject.hasError('required')">
+                Title is <strong>required</strong></span
+              >
+            </div>
+            <div *ngIf="subject.errors?.pattern">
+              <span class="text-danger" *ngIf="subject.errors?.pattern">Allowed only <strong>Alphabets</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="Particpant">Add Participant</label>
+            <div class="input-group mobile-no-input">
+              <ngx-intl-tel-input
+                formControlName="phoneno"
+                placeholder="Enter mobile number"
+                type="text"
+                (keydown.enter)="verify_user()"
+                [cssClass]="'custom'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.India"
+                [maxLength]="10"
+                [tooltipField]="TooltipLabel.Name"
+                [separateDialCode]="separateDialCode"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="input-group">
+              <tag-input
+                [(ngModel)]="display_numbers"
+                (onSelect)="onSelect($event)"
+                formControlName="participants"
+                placeholder="Participants"
+                [secondaryPlaceholder]="''"
+                style="width: 100%;"
+                (onRemove)="remove_participant($event)"
+                [removable]="true"
+              >
+              </tag-input>
+            </div>
+            <div
+              *ngIf="
+                formControls.participants.invalid &&
+                (formControls.participants.touched || formControls.participants.dirty || submitted)
+              "
+            >
+              <span class="text-danger" *ngIf="formControls.participants.hasError('required')">
+                Participants is <strong>required</strong></span
+              >
+            </div>
+            <div *ngIf="participants.errors?.pattern">
+              <span class="text-danger" *ngIf="participants.errors?.pattern"
+                >Invalid <strong>character </strong>found</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <ng-bootstrap-datetime-angular
+              placeholder="Start Date Time"
+              inputDatetimeFormat="dd/MM/yyyy hh:mm a"
+              formControlName="start_time"
+            ></ng-bootstrap-datetime-angular>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="endDate">End Date</label>
+            <ng-bootstrap-datetime-angular
+              placeholder="End Date Time"
+              inputDatetimeFormat="dd/MM/yyyy hh:mm a"
+              formControlName="end_time"
+            ></ng-bootstrap-datetime-angular>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Select Location</label>
+            <select class="form-control" formControlName="location">
+              <option value="">All</option>
+              <option *ngFor="let loc of locations" [value]="loc.name">{{ loc.name.split(':::')[0] }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-sm-4">
+          <div class="custom-control custom-switch">
+            <input
+              type="checkbox"
+              formControlName="set_recurrence"
+              (change)="rec_display($event)"
+              class="custom-control-input"
+              id="customSwitch1"
+            />
+            <label class="custom-control-label" for="customSwitch1">Recurrence</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="custom-control custom-switch">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customSwitch2"
+              formControlName="allow_forwarding"
+              (change)="setAllowForwarding($event)"
+              checked
+            />
+            <label class="custom-control-label" for="customSwitch2">Allow Forwarding</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="formControls.set_recurrence.value > 0">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="Title">Repeat Every</label>
+            <div class="input-group">
+              <select class="form-control" formControlName="repeat_interval">
+                <option *ngFor="let val of everyCount" [value]="val">{{ val }}</option>
+              </select>
+            </div>
+            <div *ngIf="repeat_interval.errors?.pattern">
+              <span class="text-danger" *ngIf="repeat_interval.errors?.pattern">
+                Repeat interval should be greater than <strong>0</strong></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="startDate">Select An Option</label>
+          <div class="form-group">
+            <select class="form-control" formControlName="repeat_mode">
+              <option *ngFor="let repeat_type of repeat_types" [value]="repeat_type.val">{{ repeat_type.text }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="Title">Repeat Count</label>
+            <div class="input-group">
+              <input formControlName="repeat_count" class="form-control" type="number" min="1" />
+            </div>
+            <div *ngIf="repeat_count.errors?.pattern">
+              <span class="text-danger" *ngIf="repeat_count.errors?.pattern">
+                Repeat count should be greater than <strong>0</strong></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      *ngIf="meeting_id == 0"
+      class="btn btn-primary btn-sm mr-auto"
+      type="submit"
+      (click)="addEvent(appointmentForm)"
+    >
+      <i class="fa fa-save mr-2" aria-hidden="true"></i>Create
+    </button>
+    <button
+      *ngIf="appointment && appointment.meeting_id > 0 && !editMode && canEdit && !appointment.is_cancelled"
+      class="btn btn-primary btn-sm"
+      type="submit"
+      (click)="toEditMode()"
+    >
+      <i class="fa fa-edit mr-2" aria-hidden="true"></i>Edit
+    </button>
+    <button
+      *ngIf="appointment && appointment.meeting_id > 0 && !editCancelEvent"
+      class="btn btn-primary btn-sm mr-auto"
+      type="submit"
+      (click)="deleteEventConfirmationDialog()"
+    >
+      <i class="fa fa-trash mr-2" aria-hidden="true"></i>Remove
+    </button>
+    <button
+      *ngIf="appointment && appointment.meeting_id > 0 && editMode"
+      class="btn btn-primary btn-sm mr-auto"
+      type="submit"
+      (click)="update()"
+    >
+      <i class="fa fa-save mr-2" aria-hidden="true"></i>Update
+    </button>
+
+    <!-- <button
+      *ngIf="appointment && appointment.meeting_id > 0 && editMode && !editCancelEvent"
+      class="btn btn-primary btn-sm mr-auto"
+      type="submit"
+      (click)="cancelEventConfirmationDialog()"
+    >
+      <i class="fa-window-close mr-2" aria-hidden="true"></i>Cancel
+    </button> -->
+  </div>
+</div>

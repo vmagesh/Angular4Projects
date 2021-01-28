@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <div class="row">
+    <div [ngClass]="this.visible ? 'col pl-0' : 'col'">
+      <button class="btn btn-primary btn-sm float-right" (click)="openModal('add', '')" style="border-radius: 24px;">
+        <i
+          class="fa fa-plus mr-2"
+          aria-hidden="true"
+          style="font-size: 19px;display: table-cell; vertical-align: middle"
+        ></i>
+        <span class="pl-2 pr-2" style="font-size: 15px;display: table-cell; vertical-align: middle;padding:0.1em;"
+          >Create</span
+        >
+      </button>
+      <button class="btn btn-primary btn-sm float-left p-2" (click)="visible = !visible">
+        <i
+          class="fa fa-filter mr-2"
+          aria-hidden="true"
+          style="font-size: 16px;display: table-cell; vertical-align: middle"
+          title="Filter"
+        ></i>
+      </button>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div *ngIf="visible" [@slideInOut] class="col-sm-12 col-md-3 shadow-sm calendar-filter p-0">
+      <div class="cal-header p-2">TITLE</div>
+      <div class="ng-autocomplete m-2">
+        <ng-autocomplete
+          placeHolder="Search..."
+          [data]="searchMeetingData"
+          [searchKeyword]="keyword"
+          (selected)="selectEvent($event)"
+          (inputChanged)="onChangeSearch($event)"
+          (inputFocused)="onFocused($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.name"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
+
+      <div class="cal-header p-2">DATE</div>
+      <ngb-datepicker
+        #dp
+        [(ngModel)]="model"
+        (navigate)="date = $event.next"
+        (click)="gotodate(model)"
+        class="w-100"
+        style="margin: 0 auto;"
+      ></ngb-datepicker>
+      <div class="cal-header p-2">FILTERS</div>
+      <div class="mt-4">
+        <label class="float-left ml-2 mt-2">Location:</label>
+        <button
+          class="btn btn-primary dropdown-toggle float-left ml-3"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+        >
+          {{ locationFilter.split(':::')[0] == -1 ? 'All' : locationFilter.split(':::')[0] }}
+        </button>
+        <div class="dropdown-menu pointer" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" value="-1" (click)="filterEventsOnLocation('-1')">All</a>
+          <a
+            *ngFor="let loc of locations"
+            class="dropdown-item"
+            value="loc.code"
+            (click)="filterEventsOnLocation(loc.name)"
+            >{{ loc.name.split(':::')[0] }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="this.visible ? 'col-sm-9' : 'col-md-12'">
+      <full-calendar
+        #calendar
+        [defaultView]="calendarOptions.defaultView"
+        [showNonCurrentDates]="false"
+        [fixedWeekCount]="false"
+        [events]="calendarEvents"
+        editable="true"
+        slotDuration="00:15:00"
+        slotLabelInterval="1:00"
+        [views]="calendarOptions.views"
+        [header]="calendarOptions.header"
+        [plugins]="calendarOptions.plugins"
+        [buttonText]="calendarOptions.buttonText"
+        eventResourceEditable="true"
+        (eventRender)="eventRender($event)"
+        (eventClick)="eventclick($event.event, false)"
+        (datesRender)="datesRender($event)"
+      ></full-calendar>
+    </div>
+  </div>
+</div>

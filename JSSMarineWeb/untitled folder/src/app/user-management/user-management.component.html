@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <h3 class="text-dark mb-4">User Management</h3>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <p class="text-primary m-0 font-weight-bold float-left">User Info</p>
+      <button class="btn btn-primary btn-sm float-right" (click)="openModal('add', '')">
+        <i class="fa fa-plus mr-2" aria-hidden="true"></i>Add New User
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 text-nowrap"></div>
+        <div class="col-md-6">
+          <div class="text-md-right dataTables_filter" id="dataTable_filter">
+            <label
+              ><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"
+            /></label>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+        <table class="table dataTable my-0" id="dataTable">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Email Id</th>
+              <th>Joined On</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.</td>
+              <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/id.png" />Magesh</td>
+              <td>+98652219</td>
+              <td>magesh@ertino.com</td>
+              <td>2020/11/28</td>
+              <td>
+                <i class="fa fa-edit pointer" aria-hidden="true" (click)="openModal('edit', '')"></i>
+                <i class="fa fa-trash ml-3 pointer" aria-hidden="true" style="color: #ED5E68;"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

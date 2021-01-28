@@ -1,0 +1,203 @@
+<div class="container-fluid">
+  <h5 class="text-dark mb-4">Appointments</h5>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-primary m-0 font-weight-bold float-left">Upcoming Appointment</p>
+            </div>
+            <div class="col-md-6">
+              <div class="dataTables_filter float-right" id="dataTable_filter">
+                <label class="mb-0">
+                  <input
+                    type="search"
+                    class="form-control form-control-sm"
+                    aria-controls="dataTable"
+                    placeholder="Search for subject..."
+                    [(ngModel)]="upcomingAppointmentFilter"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-nowrap">
+              <div *ngIf="upcomingAppoinmentLoading" style="text-align: center;">
+                <i style="color: #625cc7;" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+              </div>
+              <ul class="list-group">
+                <li *ngIf="upcomingAppoinments.length == 0">No Appointment</li>
+                <li
+                  *ngFor="
+                    let upcomingAppoinment of upcomingAppoinments
+                      | subjectFilter: { subject: upcomingAppointmentFilter };
+                    index as i
+                  "
+                  class="{{
+                    upcomingAppoinment.is_cancelled ? 'list-bk mb-2 status-border-danger' : 'list-bk mb-2 status-border'
+                  }}"
+                >
+                  <div class="col-xs-6 col-date float-left ml-2 mt-2 mb-2">
+                    <div>
+                      <img
+                        *ngIf="imageMap[upcomingAppoinment.host_contact_number]"
+                        alt="CatchUp"
+                        [src]="imageMap[upcomingAppoinment.host_contact_number]"
+                        width="50px"
+                        height="50px"
+                        class="border rounded-circle img-profile"
+                      />
+                      <img
+                        *ngIf="!imageMap[upcomingAppoinment.host_contact_number]"
+                        alt="CatchUp"
+                        src="assets/img/id.png"
+                        width="50px"
+                        height="50px"
+                        class="border rounded-circle img-profile"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-date float-left ml-5 mt-2 mb-2">
+                    <div>
+                      <small [attr.title]="upcomingAppoinment.subject" *ngIf="upcomingAppoinment.subject.length > 20"
+                        ><b>{{ upcomingAppoinment.subject.substring(0, 20) + '...' }}</b></small
+                      >
+                      <small *ngIf="upcomingAppoinment.subject.length < 20"
+                        ><b>{{ upcomingAppoinment.subject }}</b></small
+                      >
+                    </div>
+                    <div>
+                      <small>{{ upcomingAppoinment.location.toString().split(':::')[0] }}</small>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-entry float-left ml-5 mt-2 mb-2">
+                    <div class="chat">
+                      <small
+                        >{{ upcomingAppoinment.start_time + ' UTC' | date: 'EEEE, MMMM d, h:mm:ss'
+                        }}{{ upcomingAppoinment.start_time + ' UTC' | date: 'a' | lowercase }}</small
+                      >
+                    </div>
+                    <div class="share">
+                      <small
+                        >{{ upcomingAppoinment.end_time + ' UTC' | date: 'EEEE, MMMM d, h:mm:ss'
+                        }}{{ upcomingAppoinment.end_time + ' UTC' | date: 'a' | lowercase }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-entry float-left ml-5 mt-2 mb-2">
+                    <div *ngIf="!upcomingAppoinment.is_cancelled" class="badge badge-info">Scheduled</div>
+                    <div *ngIf="upcomingAppoinment.is_cancelled" class="badge badge-danger">
+                      Cancelled
+                    </div>
+                    <div class="mt-1" *ngIf="!upcomingAppoinment.is_cancelled">
+                      <i class="fa fa-comments chat pointer" (click)="openModal(upcomingAppoinment.meeting_id)"></i>
+                      <i class="fa fa-share-alt ml-2 pointer share"></i>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-primary m-0 font-weight-bold float-left">Past Appointment</p>
+            </div>
+            <div class="col-md-6">
+              <div class="float-right dataTables_filter" id="dataTable_filter">
+                <label class="mb-0">
+                  <input
+                    type="search"
+                    class="form-control form-control-sm"
+                    aria-controls="dataTable"
+                    placeholder="Search for subject..."
+                    [(ngModel)]="pastAppointmentFilter"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 text-nowrap">
+              <div *ngIf="pastAppoinmentLoading" style="text-align: center;">
+                <i style="color: #625cc7;" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+              </div>
+              <ul class="list-group">
+                <li *ngIf="pastAppoinments.length == 0">No Appointment</li>
+                <li
+                  *ngFor="
+                    let pastAppoinment of pastAppoinments | subjectFilter: { subject: pastAppointmentFilter };
+                    index as i
+                  "
+                  class="{{
+                    pastAppoinment.is_cancelled ? 'list-bk mb-2 status-border-danger' : 'list-bk mb-2 status-border'
+                  }}"
+                >
+                  <div class="col-2 col-date float-left ml-2 mt-2 mb-2">
+                    <div>
+                      <img
+                        *ngIf="imageMap[pastAppoinment.host_contact_number]"
+                        alt="CatchUp"
+                        [src]="imageMap[pastAppoinment.host_contact_number]"
+                        width="50px"
+                        height="50px"
+                        class="border rounded-circle img-profile"
+                      />
+                      <img
+                        *ngIf="!imageMap[pastAppoinment.host_contact_number]"
+                        alt="CatchUp"
+                        src="assets/img/id.png"
+                        width="50px"
+                        height="50px"
+                        class="border rounded-circle img-profile"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-2 col-date float-left ml-2 mt-2 mb-2">
+                    <div>
+                      <small
+                        ><b>{{ pastAppoinment.subject }}</b></small
+                      >
+                    </div>
+                    <div>
+                      <small>{{ pastAppoinment.location.toString().split(':::')[0] }}</small>
+                    </div>
+                  </div>
+                  <div class="col-2 col-entry float-left ml-5 mt-2 mb-2">
+                    <div class="chat">
+                      <small
+                        >{{ pastAppoinment.start_time + ' UTC' | date: 'EEEE, MMMM d, h:mm:ss'
+                        }}{{ pastAppoinment.start_time + ' UTC' | date: 'a' | lowercase }}</small
+                      >
+                    </div>
+                    <div class="share">
+                      <small
+                        >{{ pastAppoinment.end_time + ' UTC' | date: 'EEEE, MMMM d, h:mm:ss'
+                        }}{{ pastAppoinment.end_time + ' UTC' | date: 'a' | lowercase }}</small
+                      >
+                    </div>
+                  </div>
+                  <div class="col-2 float-right mr-3 mt-2">
+                    <div *ngIf="!pastAppoinment.is_cancelled" class="badge badge-info">Scheduled</div>
+                    <div *ngIf="pastAppoinment.is_cancelled" class="badge badge-danger">Cancelled</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

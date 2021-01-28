@@ -1,0 +1,344 @@
+<div class="container-fluid">
+  <h3 class="text-dark mb-4">Profile</h3>
+  <div class="row mb-3">
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-body text-center shadow">
+          <form novalidate>
+            <div class="mb-3">
+              <input
+                type="file"
+                #profilePicFile
+                class="inp"
+                style="width:200px;text-indent: 0px;display: none;"
+                (change)="fileProgress($event)"
+                accept="image/x-png"
+                (mouseover)="changeOpacity(true)"
+                (mouseout)="changeOpacity(false)"
+              />
+
+              <img
+                (click)="profilePicFile.click()"
+                *ngIf="!loggedInUser.profilePic"
+                class="image rounded-circle mb-3 mt-4 m-auto"
+                src="assets/img/id.png"
+                width="160"
+                height="160"
+                (mouseover)="changeOpacity(true)"
+                (mouseout)="changeOpacity(false)"
+              />
+              <img
+                (click)="profilePicFile.click()"
+                *ngIf="loggedInUser.profilePic"
+                class="image rounded-circle mb-3 mt-4 m-auto"
+                [src]="loggedInUser.profilePic"
+                width="160"
+                height="160"
+                (mouseover)="changeOpacity(true)"
+                (mouseout)="changeOpacity(false)"
+              />
+              <div [ngClass]="opacityClass" (click)="profilePicFile.click()">
+                <div class="text">UPDATE</div>
+              </div>
+            </div>
+            <div class="mb-0">
+              <button
+                [disabled]="disableChangePic"
+                class="btn btn-primary btn-sm"
+                type="button"
+                (click)="updateProfilePicture()"
+              >
+                Change Photo
+              </button>
+            </div>
+            <br />
+            <div class="mt-0" style="display: inline-block;vertical-align: middle;">
+              <i class="fa fa-user text-success float-left mt-2" aria-hidden="true"></i>
+              <span class="float-left ml-2 mt-1">Business User</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col">
+          <div class="card shadow mb-3">
+            <div class="card-header py-3">
+              <p class="text-primary m-0 font-weight-bold">User Settings</p>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="profileForm" novalidate>
+                <div class="form-row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="mobileno"><strong>Mobile Number</strong></label>
+                      <input disabled [value]="user.contactNumber" class="form-control" type="text" name="mobileno" />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="email"><strong>Email Address</strong></label>
+                      <input disabled [value]="user.email" class="form-control" type="email" name="email" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="businessname"><strong>Business Name</strong></label>
+                      <input
+                        [value]="user.first_name"
+                        formControlName="businessname"
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter name"
+                        name="businessname"
+                        maxlength="30"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-sm" (click)="updateProfile()">Save Settings</button>
+                  <button class="btn btn-danger btn-sm ml-3" (click)="deleteAccount()">Delete Account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold float-left">Location</p>
+          <button class="btn btn-primary btn-sm float-right" (click)="openModal('add', '')">
+            <i class="fa fa-plus mr-2" aria-hidden="true"></i>Add New Location
+          </button>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6 text-nowrap"></div>
+              <div class="col-md-6">
+                <div class="text-md-right dataTables_filter" id="dataTable_filter">
+                  <label>
+                    <input
+                      type="search"
+                      class="form-control form-control-sm"
+                      aria-controls="dataTable"
+                      placeholder="Search"
+                      [(ngModel)]="locationFilter"
+                      name="locationFilter"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+              <table class="table dataTable my-0" id="dataTable">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Location Name</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="locationDataSource.length == 0">
+                    <td class="text-danger">No data found</td>
+                  </tr>
+                  <tr
+                    *ngFor="let location of locationDataSource | locationFilter: { name: locationFilter }; index as i"
+                  >
+                    <td>{{ i + 1 }}.</td>
+                    <td>{{ location.name.split(':::')[0] }}</td>
+                    <td>{{ location.name.split(':::')[2] }}</td>
+                    <td>{{ location.name.split(':::')[4] }}</td>
+                    <td>{{ location.name.split(':::')[6] }}</td>
+                    <td>
+                      <i
+                        class="fa fa-edit pointer"
+                        title="edit"
+                        aria-hidden="true"
+                        (click)="openModal('edit', location)"
+                      ></i>
+                      <i
+                        title="delete"
+                        class="fa fa-trash ml-3 pointer"
+                        aria-hidden="true"
+                        style="color: #ED5E68;"
+                        (click)="deleteLocation(location)"
+                      ></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header py-3">
+          <p class="text-primary m-0 font-weight-bold float-left">Billings</p>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6 text-nowrap text-primary">
+                <span style="border-bottom: 2px solid#625CC5;font-weight: 600;">Subscriptions</span>
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-right dataTables_filter" id="dataTable_filter">
+                  <label>
+                    <input
+                      type="search"
+                      class="form-control form-control-sm"
+                      aria-controls="dataTable"
+                      placeholder="Search plan..."
+                      [(ngModel)]="subscriptionFilter"
+                      name="subscriptionFilter"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+              <table class="table dataTable my-0" id="dataTable">
+                <thead>
+                  <tr>
+                    <th>Plan name</th>
+                    <th>Price</th>
+                    <th>Last billing date</th>
+                    <th>Next billing date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="subscriptionDataSource.length == 0">
+                    <td class="text-danger" colspan="6">No data found</td>
+                  </tr>
+                  <tr
+                    *ngFor="
+                      let subscription of subscriptionDataSource
+                        | subscriptionFilter: { plan_name: subscriptionFilter };
+                      index as i
+                    "
+                  >
+                    <td>{{ subscription.plan_name | titlecase }}</td>
+                    <td>
+                      {{ convertAmount(subscription.plan_amount) }}&nbsp;{{ subscription.plan_currency | uppercase }}
+                    </td>
+                    <td>{{ subscription.current_period_start * 1000 | date }}</td>
+                    <td>{{ subscription.current_period_end * 1000 | date }}</td>
+                    <td>
+                      <span [ngStyle]="subscription.status != 'canceled' ? { color: 'green' } : { color: 'red' }">{{
+                        subscription.status | titlecase
+                      }}</span>
+                    </td>
+                    <td>
+                      <i
+                        class="fa fa-history pointer"
+                        title="Billing History"
+                        aria-hidden="true"
+                        (click)="getInvoiceHistory(subscription.subscription_id)"
+                      ></i>
+                      <i
+                        *ngIf="subscription.status != 'canceled'"
+                        class="fa fa-times ml-3 pointer"
+                        aria-hidden="true"
+                        style="color: #ED5E68;"
+                        (click)="unsubscribeConfirmationDialog(subscription.subscription_id)"
+                        title="Unsubscribe"
+                      ></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr *ngIf="showInvoiceHistory" />
+            <div class="row" *ngIf="showInvoiceHistory">
+              <div class="col-md-6 text-nowrap text-primary">
+                <span style="border-bottom: 2px solid#625CC5;font-weight: 600;">Invoice History</span>
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-right dataTables_filter" id="dataTable_filter">
+                  <label>
+                    <input
+                      type="search"
+                      class="form-control form-control-sm"
+                      aria-controls="dataTable"
+                      placeholder="Search invoice number..."
+                      [(ngModel)]="invoiceFilter"
+                      name="invoiceFilter"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table-responsive table mt-2"
+              id="dataTable"
+              role="grid"
+              aria-describedby="dataTable_info"
+              *ngIf="showInvoiceHistory"
+              style="margin-top: 25px !important;"
+            >
+              <table class="table dataTable my-0" id="dataTable">
+                <thead>
+                  <tr>
+                    <th>Invoice number</th>
+                    <th>Product name</th>
+                    <th>Invoice issue date</th>
+                    <th>Invoice due date</th>
+                    <th>Paid amount</th>
+                    <th>Due amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="invoiceHistory.length == 0">
+                    <td class="text-danger">No data found</td>
+                  </tr>
+                  <tr
+                    *ngFor="let invoice of invoiceHistory | invoiceFilter: { invoice_num: invoiceFilter }; index as i"
+                  >
+                    <td>{{ invoice.invoice_num }}</td>
+                    <td>{{ invoice.product_name }}</td>
+                    <td>{{ invoice.invoice_issue_date * 1000 | date }}</td>
+                    <td>{{ invoice.invoice_due_date * 1000 | date }}</td>
+                    <td>{{ convertAmount(invoice.invoice_paid) }}&nbsp;{{ invoice.currency | uppercase }}</td>
+                    <td>{{ convertAmount(invoice.invoice_due) }}&nbsp;{{ invoice.currency | uppercase }}</td>
+                    <td>
+                      <span [ngStyle]="invoice.status != 'open' ? { color: 'green' } : { color: 'red' }">{{
+                        invoice.status | titlecase
+                      }}</span>
+                    </td>
+                    <td>
+                      <a [href]="invoice.pdf_url"
+                        ><i class="fa fa-download pointer text-primary" aria-hidden="true"></i
+                      ></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

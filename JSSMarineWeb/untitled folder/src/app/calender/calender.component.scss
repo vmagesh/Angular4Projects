@@ -1,0 +1,72 @@
+::ng-deep {
+  full-calendar {
+    .fc-button {
+      background-color: #625cc7 !important;
+      border-color: white;
+
+      border-radius: 20px;
+    }
+    .fc-button-active {
+      border: 2px solid #1ea83f !important;
+    }
+    .fc-button-primary:hover {
+      border-color: grey;
+    }
+    .fc-button-primary:disabled {
+      border-color: white !important;
+    }
+    .fc-event,
+    .fc-event-dot {
+      background-color: #4b1cc8;
+    }
+  }
+}
+
+.app-calendar {
+  background-color: white;
+  padding: 10px;
+  width: 100%;
+}
+datepicker {
+  height: 200px;
+  width: 50%;
+  background-color: powderblue;
+}
+.calendar-filter {
+  background-color: white;
+}
+
+.largeWidth {
+  max-width: 100%;
+}
+
+.smallWidth {
+  max-width: 80%;
+}
+.cal-header {
+  vertical-align: middle;
+  text-align: center;
+  background-color: #f1f3f4;
+  font-weight: bold;
+  font-size: 13px;
+  color: #625cc7;
+}
+
+::ng-deep {
+  ngb-datepicker {
+    .ngb-dp-day,
+    .ngb-dp-week-number,
+    .ngb-dp-weekday {
+      width: -webkit-fill-available;
+    }
+    .ngb-dp-month {
+      width: 100%;
+    }
+  }
+}
+
+.ng-autocomplete {
+  width: 93%;
+  border-radius: 1px;
+  background-color: #f8f9fc !important;
+}

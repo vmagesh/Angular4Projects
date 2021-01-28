@@ -1,0 +1,574 @@
+<div class="container-fluid p-0">
+  <div class="row m-0">
+    <div class="col-sm-12 col-md-8 bg-gradient-primary h-100vh leftbanner">
+      <div class="row mt-4 ml-4">
+        <div class="col">
+          <img class="float-left" src="assets/img/catchup.png" style="width:60px;" />
+          <span class="float-left ml-3 mt-3" style="font-size: 25px;color: white;">
+            <h2 style="font-weight: bold;">CatchUp</h2>
+          </span>
+        </div>
+      </div>
+      <!--<div class="center-div text-white mt-5">-->
+      <!--<div class="container-fluid">-->
+      <div class="row text-white mt-5 ml-5">
+        <div class="col-sm-12 col-md-12 center-div">
+          <div class="float-left mt-3">
+            <ul class="p-0" style="list-style-type: none;font-size: 20px;line-height: 40px;">
+              <li>
+                <h2>Schedule. Confirm. Engage.</h2>
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-fire-alt" aria-hidden="true" style="width: 25px;"></i></span
+                >Start a new yoga batch !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-utensils" aria-hidden="true" style="width: 25px;"></i></span
+                >Confirm a restaurant reservation !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-gamepad" aria-hidden="true" style="width: 25px;"></i></span
+                >Schedule a soccer practice session !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-user-friends" aria-hidden="true" style="width: 25px;"></i></span
+                >Track participation for a Math class !
+              </li>
+            </ul>
+          </div>
+          <div class="float-left ml-5 mt-3 leftbanner-img">
+            <img width="200px" src="assets/img/Plan.png" style="border-radius: 20%;" />
+          </div>
+        </div>
+        <!--<div class="col-sm-12 col-md-4">
+              <img width="200px" src="assets/img/Plan.png" style="border-radius: 20%;" />
+            </div>-->
+      </div>
+      <div class="row text-white mt-3 ml-5">
+        <div class="col-sm-12 col-md-12 center-div">
+          <div class="float-left mt-3">
+            <ul class="p-0" style="list-style-type: none;font-size: 20px;line-height: 40px;">
+              <li>
+                <h2>Plan. Promote. Execute.</h2>
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-calendar-check" aria-hidden="true" style="width: 25px;"></i></span
+                >Create a business appointment !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-truck-loading" aria-hidden="true" style="width: 25px;"></i></span
+                >Inform a parcel delivery window !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-user-tie" aria-hidden="true" style="width: 25px;"></i></span
+                >Schedule an interview !
+              </li>
+              <li>
+                <span style="margin-right: 15px;"
+                  ><i class="fa fa-code" aria-hidden="true" style="width: 25px;"></i></span
+                >Leverage APIs for s/w development !
+              </li>
+            </ul>
+          </div>
+          <div class="float-left ml-5 mt-3 leftbanner-img">
+            <img width="200px" src="assets/img/buildings.png" style="border-radius: 20%;" />
+          </div>
+        </div>
+        <!--<div class="col-sm-12 col-md-4">
+              <img width="200px" src="assets/img/buildings.png" style="border-radius: 20%;" />
+            </div>-->
+      </div>
+      <!--</div>
+        <div style="position: absolute;bottom: 0px;width: 100%;">
+          <img src="assets/img/back.svg" style="width: 100%;" />
+        </div>
+      </div>-->
+    </div>
+    <div class="col-sm-12 col-md-4 h-100vh bg-white p-0 col-sm-offset-2">
+      <div style="height: 100px;"></div>
+      <div class="p-5">
+        <!-- SWITCH CASE ENDS -->
+        <div [ngSwitch]="step">
+          <div class="text-center" *ngIf="selectedView == 'login'">
+            <h4 class="text-dark mb-4">
+              Welcome Back to<a
+                href="https://www.catchupcalendar.com/"
+                target="_blank"
+                class="mt-5 ml-1"
+                style="font-weight: bold;color: #625CC7;"
+                >CatchUp!</a
+              >
+            </h4>
+          </div>
+          <div class="text-center" *ngIf="selectedView == 'forgot'">
+            <h4 class="text-dark mb-2">Reset Your Password?</h4>
+            <p class="mb-4">
+              We get it, stuff happens. Just enter your mobile number below and we'll send you a OTP to reset your
+              password!
+            </p>
+          </div>
+          <div class="text-center" *ngIf="selectedView == 'register'">
+            <h4 class="text-dark mb-4">Create an Account!</h4>
+          </div>
+          <!-- STEP 1 STARTS-->
+          <div class="step" *ngSwitchCase="1">
+            <form class="user" [formGroup]="stepOneForm" novalidate>
+              <div
+                [ngClass]="
+                  this.mobileNoError
+                    ? 'form-group mobile-no-input mb-0 shake-div border-red'
+                    : 'form-group mobile-no-input'
+                "
+              >
+                <ngx-intl-tel-input
+                  [cssClass]="'custom'"
+                  [preferredCountries]="preferredCountries"
+                  [enableAutoCountrySelect]="false"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                  [selectFirstCountry]="false"
+                  [selectedCountryISO]="CountryISO.India"
+                  [maxLength]="15"
+                  [tooltipField]="TooltipLabel.Name"
+                  [phoneValidation]="false"
+                  [separateDialCode]="separateDialCode"
+                  (change)="countryCodeChangeEvent()"
+                  formControlName="phoneno"
+                  (keyup)="enableInputs()"
+                  (mouseout)="telFocusOut()"
+                >
+                </ngx-intl-tel-input>
+              </div>
+
+              <!--<div
+                [ngClass]="
+                  this.mobileNoError
+                    ? 'form-group mobile-no-input mb-0 shake-div border-red'
+                    : 'form-group mobile-no-input'
+                "
+              >
+                <international-phone-number
+                  [(ngModel)]="phoneno"
+                  formControlName="phoneno"
+                  (keyup)="emptyError()"
+                  (focusout)="checkPhoneNoExist()"
+                  name="phoneno"
+                  placeholder="Enter Mobile No..."
+                  [maxlength]="20"
+                  (change)="countryCodeChangeEvent($event)"
+                  [required]="true"
+                >
+                </international-phone-number>
+              </div>-->
+              <div class="form-group ml-2" *ngIf="this.mobileNoError">
+                <small class="text-danger text-center">{{ mobileNoError }}</small>
+              </div>
+
+              <!-- LOGIN STARTS-->
+
+              <div class="form-group" *ngIf="selectedView == 'login'">
+                <input
+                  *ngIf="!passwordNotExist"
+                  class="form-control form-control-user"
+                  type="password"
+                  formControlName="password"
+                  id="password"
+                  placeholder="Password..."
+                  name="password"
+                  [attr.disabled]="disablePassword ? true : null"
+                  maxlength="15"
+                />
+              </div>
+
+              <div class="form-group" *ngIf="selectedView == 'login'">
+                <div class="custom-control custom-checkbox small">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input custom-control-input"
+                      type="checkbox"
+                      formControlName="remember"
+                      name="remember"
+                      id="remember"
+                    /><label class="form-check-label custom-control-label" for="remember">Remember Me</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="selectedView == 'login'">
+                <button
+                  *ngIf="passwordNotExist"
+                  [disabled]="phoneNoInvalid || mobileNoError"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="get_otp()"
+                >
+                  Set Password
+                </button>
+                <button
+                  *ngIf="!passwordNotExist"
+                  [disabled]="!(stepOneForm.value.phoneno && stepOneForm.value.password) || mobileNoError"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="checkPhoneNoExist()"
+                >
+                  Login
+                </button>
+              </div>
+
+              <!-- LOGIN ENDS-->
+
+              <!-- REGISTRATION STARTS-->
+
+              <div class="form-group row mt-4" *ngIf="selectedView == 'register' || selectedView == 'forgot'">
+                <div class="form__radio-group col-sm-12">
+                  <div class="float-left">
+                    <input
+                      #checkSms
+                      formControlName="register_sms"
+                      type="checkbox"
+                      id="register-sms"
+                      [checked]="registerCheckSMS"
+                      (click)="changeRegisterOTP('sms')"
+                    />
+                    <label class="pointer" for="register-sms" id="sms-circle-cont">
+                      <div id="sms-circle"></div>
+                    </label>
+                    <label class="pointer" for="register-sms" id="label-name">
+                      SMS
+                    </label>
+                  </div>
+                  <div class="float-left ml-3">
+                    <input
+                      formControlName="register_ivr"
+                      type="checkbox"
+                      id="register-ivr"
+                      [checked]="registerCheckIVR"
+                      (click)="changeRegisterOTP('ivr')"
+                    />
+                    <label class="pointer" for="register-ivr" id="ivr-circle-cont">
+                      <div id="ivr-circle"></div>
+                    </label>
+                    <label class="pointer" for="register-ivr" id="label-name">
+                      IVR Call
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="selectedView == 'register'">
+                <button
+                  [disabled]="phoneNoInvalid || generatingOtp == true || mobileNoError"
+                  (click)="checkPhoneNoExist()"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  type="submit"
+                >
+                  <i *ngIf="generatingOtp == true" class="fa fa-spinner fa-spin"></i
+                  ><span *ngIf="generatingOtp == true" class="ml-2">Generating OTP...</span
+                  ><span *ngIf="generatingOtp != true" class="ml-2">Generate OTP</span>
+                </button>
+              </div>
+
+              <!-- REGISTRATION ENDS -->
+
+              <!-- FORGOT PASSWORD STARTS-->
+              <div class="form-group" *ngIf="selectedView == 'forgot'">
+                <button
+                  [disabled]="phoneNoInvalid || generatingOtp == true || mobileNoError"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="checkPhoneNoExist()"
+                >
+                  <i *ngIf="generatingOtp == true" class="fa fa-spinner fa-spin"></i
+                  ><span *ngIf="generatingOtp == true" class="ml-2">Generating OTP...</span
+                  ><span *ngIf="generatingOtp != true" class="ml-2">Reset Password</span>
+                </button>
+              </div>
+              <!-- FORGOT PASSWORD ENDS-->
+
+              <!-- COMMON STARTS-->
+              <div class="form-group text-center mb-0" *ngIf="this.error">
+                <label class="text-danger text-center  mb-0"
+                  ><small>{{ error }}</small></label
+                >
+              </div>
+              <div class="form-group text-center mb-0" *ngIf="this.success">
+                <label class="text-success text-center"
+                  ><small>{{ success }}</small></label
+                >
+              </div>
+              <hr />
+              <!-- COMMON ENDS-->
+            </form>
+          </div>
+
+          <!-- STEP 1 ENDS-->
+
+          <!-- STEP 2 STARTS-->
+          <div class="step" *ngSwitchCase="2">
+            <form class="user" [formGroup]="stepTwoForm" novalidate>
+              <div class="form-group">
+                <label class="label">Enter your OTP</label>
+                <ng-otp-input
+                  ngDefaultControl
+                  [(ngModel)]="otp"
+                  (onInputChange)="onOtpChange($event)"
+                  formControlName="otp"
+                  name="otp"
+                  fxflex="100%"
+                  [config]="otpConfig"
+                ></ng-otp-input>
+              </div>
+              <div class="form-group" *ngIf="showOTP">
+                <countdown #cd [config]="{ leftTime: 100, format: 'mm:ss' }" (event)="handleCountdownTimmer($event)">
+                  Regenerate OTP in
+                </countdown>
+              </div>
+              <div class="form-group">
+                <button
+                  [disabled]="!stepTwoForm.valid || verifyingOtp == true"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="verify()"
+                >
+                  <i *ngIf="verifyingOtp == true" class="fa fa-spinner fa-spin"></i
+                  ><span *ngIf="verifyingOtp == true" class="ml-2">Verifying OTP...</span
+                  ><span *ngIf="verifyingOtp != true" class="ml-2">Verify</span>
+                </button>
+              </div>
+              <div class="form-group" *ngIf="!showOTP">
+                <button
+                  [disabled]="generatingOtp == true"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="get_otp()"
+                >
+                  <i *ngIf="generatingOtp == true" class="fa fa-spinner fa-spin"></i
+                  ><span *ngIf="generatingOtp == true" class="ml-2">Regenerating OTP...</span
+                  ><span *ngIf="generatingOtp != true" class="ml-2">Regenerate OTP</span>
+                </button>
+              </div>
+              <div class="form-group text-center mb-0" *ngIf="this.error">
+                <label class="text-danger center"
+                  ><small>{{ error }}</small></label
+                >
+              </div>
+              <div class="form-group text-center mb-0" *ngIf="this.success">
+                <label class="text-success text-center"
+                  ><small>{{ success }}</small></label
+                >
+              </div>
+            </form>
+          </div>
+          <!-- STEP 2 ENDS-->
+
+          <!-- STEP 3 STARTS-->
+          <div class="step" *ngSwitchCase="3">
+            <form class="user" [formGroup]="stepThreeForm" novalidate>
+              <div class="text-center">
+                <h4 class="text-dark mb-4">Welcome to CatchUp!</h4>
+              </div>
+              <div class="form-group center">
+                <a
+                  (click)="doGoogleLogin()"
+                  class="btn btn-primary btn-block text-white btn-google btn-user"
+                  role="button"
+                  ><i class="fab fa-google"></i>&nbsp; Login with Google</a
+                >
+              </div>
+              <div class="form-group center mb-0 mt-3">
+                <label>OR</label>
+              </div>
+              <div class="form-group center">
+                <input
+                  class="form-control form-control-user"
+                  type="email"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter Email Address..."
+                  name="email"
+                  formControlName="email"
+                />
+              </div>
+              <div class="form-group mt-4">
+                <button
+                  type="submit"
+                  [disabled]="!stepThreeForm.valid"
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="setPassword()"
+                >
+                  Get Started
+                </button>
+                <div class="form-group text-center mb-0" *ngIf="this.error">
+                  <label class="text-danger center"
+                    ><small>{{ error }}</small></label
+                  >
+                </div>
+                <div class="ml-4 mt-2">
+                  <small
+                    >By signing up, you confirm that you've read and accepted our
+                    <a href="https://www.catchupcalendar.com/Terms-of-Use.html" target="_blank">Terms of Service</a>
+                    and
+                    <a href="https://www.catchupcalendar.com/Privacy-Policy.html" target="_blank"
+                      >Privacy Policy.</a
+                    ></small
+                  >
+                </div>
+              </div>
+              <hr />
+            </form>
+          </div>
+          <!-- STEP 3 ENDS-->
+
+          <!-- STEP 4 STARTS-->
+          <div class="step" *ngSwitchCase="4">
+            <form class="user" [formGroup]="stepFourForm" novalidate>
+              <div class="text-center">
+                <h4 class="text-dark mb-4">Welcome to CatchUp!</h4>
+              </div>
+              <div class="form-group center">
+                <!--<input
+                  class="form-control form-control-user"
+                  [type]="stepFourForm.value.showpassword ? 'text' : 'password'"
+                  id="password"
+                  placeholder="Password..."
+                  name="password"
+                  formControlName="password"
+                  maxlength="15"
+                />-->
+                <input
+                  class="form-control form-control-user"
+                  [type]="stepFourForm.value.showpassword ? 'text' : 'password'"
+                  id="password"
+                  placeholder="Password..."
+                  name="password"
+                  formControlName="password"
+                  autocomplete="off"
+                  maxlength="15"
+                />
+                <app-password-strength
+                  [passwordToCheck]="stepFourForm.value.password"
+                  (passwordStrength)="passwordValid($event)"
+                ></app-password-strength>
+                <small class="form-text text-muted">
+                  Your password must be at least 6 characters long, contain at least one uppercase letter, one lowercase
+                  letter, one number, special characters.
+                </small>
+              </div>
+              <div class="form-group center mt-3">
+                <input
+                  class="form-control form-control-user"
+                  [type]="stepFourForm.value.showpassword ? 'text' : 'password'"
+                  id="confirmPassword"
+                  placeholder="Confirm Password..."
+                  name="confirmPassword"
+                  formControlName="confirmPassword"
+                  maxlength="15"
+                  (keyup)="checkConfirmPassword()"
+                />
+                <small class="form-text text-danger" *ngIf="!passwordMatching">
+                  **Password are not matching**
+                </small>
+              </div>
+
+              <div class="custom-control custom-checkbox small form-group mt-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input custom-control-input"
+                    type="checkbox"
+                    formControlName="showpassword"
+                    name="showpassword"
+                    id="showpassword"
+                  /><label class="form-check-label custom-control-label" for="showpassword">Show password</label>
+                </div>
+              </div>
+
+              <div class="form-group mt-3">
+                <button
+                  type="button"
+                  [disabled]="
+                    !(stepFourForm.valid && stepFourForm.value.password == stepFourForm.value.confirmPassword) ||
+                    passwordIsValid == false ||
+                    registeringUser == true
+                  "
+                  class="btn btn-primary btn-block text-white btn-user"
+                  (click)="updateWebUser()"
+                >
+                  <i *ngIf="registeringUser == true" class="fa fa-spinner fa-spin"></i
+                  ><span *ngIf="registeringUser == true" class="ml-2">
+                    {{ selectedView === 'register' ? 'Registering user...' : 'Resetting password...' }}</span
+                  ><span *ngIf="registeringUser != true" class="ml-2">Submit</span>
+                </button>
+              </div>
+              <div class="form-group text-center mb-0" *ngIf="this.error">
+                <label class="text-danger text-center"
+                  ><small>{{ error }}</small></label
+                >
+              </div>
+              <div class="form-group text-center mb-0" *ngIf="this.success">
+                <label class="text-success text-center"
+                  ><small>{{ success }}</small></label
+                >
+              </div>
+            </form>
+          </div>
+          <!-- STEP 4 ENDS-->
+
+          <!-- VIEW SWITCHER STARTS -->
+          <div class="login" *ngIf="selectedView == 'login'">
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="selectedView = 'forgot'; step = 1; error = ''; resetAllInputFields()"
+                >Forgot Password?</a
+              >
+            </div>
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="selectedView = 'register'; step = 1; error = ''; resetAllInputFields()"
+                >Create an Account!</a
+              >
+            </div>
+          </div>
+          <div class="register" *ngIf="selectedView == 'register'">
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="resetAllInputFields(); selectedView = 'forgot'; step = 1; error = ''"
+                >Forgot Password?</a
+              >
+            </div>
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="resetAllInputFields(); selectedView = 'login'; step = 1; error = ''"
+                >Already have an account? Login!</a
+              >
+            </div>
+          </div>
+          <div class="forgotpassword" *ngIf="selectedView == 'forgot'">
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="resetAllInputFields(); selectedView = 'register'; step = 1; error = ''"
+                >Create an Account!</a
+              >
+            </div>
+            <div class="text-center">
+              <a
+                class="small pointer underline_text"
+                (click)="resetAllInputFields(); registerCheckSMS = true; selectedView = 'login'; step = 1; error = ''"
+                >Already have an account? Login!</a
+              >
+            </div>
+          </div>
+          <!-- VIEW SWITCHER ENDS -->
+        </div>
+        <!-- SWITCH CASE ENDS -->
+      </div>
+      <div class="copy-right center-div">©{{ currentYear }} Catchup&nbsp;Calendar Inc</div>
+    </div>
+  </div>
+  <div id="recaptcha-container"></div>
+</div>

@@ -1,0 +1,95 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" style="color:#625cc7;">Message</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="full-height">
+    <div class="mesgs full-height mb-3 overflow-auto" style="max-height: 400px;" #chatWindow>
+      <div class="msg_history pt-4 pr-3">
+        <div *ngFor="let activity of chatMessages">
+          <div class="incoming_msg" *ngIf="activity.system_generated > 0">
+            <div class="system_created_msg"></div>
+            <div class="received_msg">
+              <div class="received_withd_msg">
+                <p>{{ activity.content | eventName }}</p>
+                <span class="time_date">{{ activity.created_at | date: 'medium' }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="incoming_msg" *ngIf="activity.system_generated == 0 && activity.contact_number != HostNumber">
+            <div class="incoming_msg_img">
+              <span>{{ activity.contact_number }}</span>
+            </div>
+            <div class="received_msg">
+              <div class="received_withd_msg">
+                <p>{{ activity.content }}</p>
+                <span class="time_date">{{ activity.created_at | date: 'medium' }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="outgoing_msg" *ngIf="activity.system_generated == 0 && activity.contact_number == HostNumber">
+            <div class="sent_msg">
+              <p>{{ activity.content }}</p>
+              <span class="time_date">{{ activity.created_at | date: 'medium' }}</span>
+              <span class="msg_status" *ngIf="activity.read_by_all === true">Read</span>
+              <span class="msg_status" *ngIf="activity.read_by_all === false && activity.delivered_to_all === true"
+                >Delivered</span
+              >
+              <span class="msg_status" *ngIf="activity.delivered_to_all === false">Not Delivered</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="container-fluid pl-3 pr-3">
+    <div class="row p-0">
+      <div class="col-md-11 p-0">
+        <textarea
+          class="form-control custom-control pl-0"
+          rows="3"
+          style="resize:none"
+          placeholder="Type a message..."
+          [(ngModel)]="message"
+          (keydown.enter)="sendEventChat(); $event.stopPropagation()"
+        ></textarea>
+      </div>
+      <div class="col-md-1" style="color: #625cc7;cursor: pointer;" (click)="sendEventChat()">
+        <i class="fa fa-paper-plane mt-4 ml-1" aria-hidden="true" style="font-size: 20px;"></i>
+        <small><b>SEND</b></small>
+      </div>
+    </div>
+  </div>
+  <!--<div class="input-group">
+    <textarea class="form-control custom-control" rows="3" style="resize:none"></textarea>     
+    <button class="msg_send_btn" type="button" (click)="sendEventChat()">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+</div>
+  <div class="type_msg">
+    
+   <input
+        type="text"
+        class="write_msg"
+        placeholder="Type a message"
+        [(ngModel)]="message"
+        (keydown.enter)="sendEventChat()"
+      />
+    <div class="input_msg_write">
+      <input
+        type="text"
+        class="write_msg"
+        placeholder="Type a message"
+        [(ngModel)]="message"
+        (keydown.enter)="sendEventChat()"
+      />
+      <button class="msg_send_btn mr-2" type="button" (click)="sendEventChat()">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>-->
+</div>

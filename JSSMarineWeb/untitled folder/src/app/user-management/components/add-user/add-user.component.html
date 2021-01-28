@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" style="color:#625cc7;">Add User</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="user" [formGroup]="userForm" novalidate>
+    <div class="form-group">
+      <label for="phoneno">Mobile No.</label>
+      <div
+        [ngClass]="
+          this.mobileNoError ? 'form-group mobile-no-input mb-0 shake-div border-red' : 'form-group mobile-no-input'
+        "
+      >
+        <international-phone-number
+          [(ngModel)]="phoneno"
+          formControlName="phoneno"
+          (keyup)="emptyError()"
+          (focusout)="checkPhoneNoExist()"
+          name="phoneno"
+          placeholder="Enter Mobile No..."
+          [maxlength]="20"
+          (change)="countryCodeChangeEvent($event)"
+          [required]="true"
+        >
+        </international-phone-number>
+      </div>
+      <div class="form-group ml-2" *ngIf="this.mobileNoError">
+        <small class="text-danger text-center">{{ mobileNoError }}</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Id</label>
+      <input
+        id="emailid"
+        name="emailid"
+        class="form-control form-control-user"
+        placeholder="Enter Email Id..."
+        type="email"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Business Name</label>
+      <input
+        id="businessname"
+        name="businessname"
+        class="form-control form-control-user"
+        placeholder="Enter Business Name..."
+        type="email"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        id="password"
+        name="password"
+        class="form-control form-control-user"
+        placeholder="Enter Password..."
+        type="password"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input
+        id="confirmpassword"
+        name="confirmpassword"
+        class="form-control form-control-user"
+        placeholder="Confirm Password..."
+        type="password"
+      />
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary btn-sm mr-auto"><i class="fa fa-save mr-2" aria-hidden="true"></i>Save</button>
+</div>

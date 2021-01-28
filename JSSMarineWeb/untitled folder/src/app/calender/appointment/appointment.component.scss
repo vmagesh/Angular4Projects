@@ -1,0 +1,100 @@
+::ng-deep {
+  ngb-datepicker {
+    .ngb-dp-day,
+    .ngb-dp-week-number,
+    .ngb-dp-weekday {
+      width: -webkit-fill-available;
+    }
+  }
+}
+.custom {
+  width: 100%;
+  border: none;
+  color: #6e707e;
+  padding-left: 88px !important;
+}
+
+.modal-header-info {
+  color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #625cc7;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.modal-header-primary {
+  background-color: #428bca;
+}
+
+.mobile-no-input {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 12px;
+  border: 1px solid #d1d3e2;
+}
+
+::ng-deep {
+  ngx-intl-tel-input {
+    .intl-tel-input.separate-dial-code .selected-flag {
+      background-color: #fff !important;
+    }
+    .intl-tel-input {
+      width: 100%;
+    }
+    .custom {
+      width: 100%;
+      border: none;
+      color: #6e707e;
+      padding-left: 88px !important;
+    }
+    .custom:focus {
+      outline: none;
+      border: none;
+      border-color: inherit;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+    .selected-flag {
+      width: 80px !important;
+    }
+  }
+}
+
+::ng-deep {
+  international-phone-number {
+    .form-control {
+      border: none;
+      padding-left: 0px;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+::ng-deep {
+  international-phone-number {
+    .form-control:focus {
+      outline: none;
+      border: none;
+      border-color: inherit;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
+
+::ng-deep {
+  international-phone-number {
+    .dropbtn:focus {
+      outline: none;
+      border: none;
+      border-color: inherit;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}

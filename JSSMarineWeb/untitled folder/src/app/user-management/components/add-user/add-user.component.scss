@@ -1,0 +1,40 @@
+.mobile-no-input {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 5px;
+  border: 1px solid #d1d3e2;
+}
+
+::ng-deep {
+  international-phone-number {
+    .form-control {
+      border: none;
+      padding-left: 0px;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+::ng-deep {
+  international-phone-number {
+    .form-control:focus {
+      outline: none;
+      border: none;
+      border-color: inherit;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
+
+::ng-deep {
+  international-phone-number {
+    .dropbtn:focus {
+      outline: none;
+      border: none;
+      border-color: inherit;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
