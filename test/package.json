@@ -50,7 +50,7 @@
     "fsevents": "^2.1.2",
     "google-libphonenumber": "^3.2.7",
     "intl-tel-input": "^14.1.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "@types/jquery": "3.3.33",
     "ng-bootstrap-datetime-angular": "0.1.25",
     "ng-otp-input": "^1.7.0",
